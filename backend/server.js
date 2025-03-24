@@ -14,7 +14,11 @@ app.use(express.json());
 
 // Exemplo de rota
 app.post('/api/tracking', (req, res) => {
+  
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
   console.log('Dados recebidos:', req.body);
+  console.log('ip: ', ip)
   res.json({ message: 'Tracking recebido!' });
 });
 
