@@ -5,7 +5,7 @@ FROM nginx:alpine
 COPY index.html /usr/share/nginx/html/index.html
 
 # Expõe a porta 80 para acesso à página
-EXPOSE 80
+EXPOSE 8080
 
 # Inicia o Nginx
 CMD ["nginx", "-g", "daemon off;"]
