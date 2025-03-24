@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - tracking-net
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    networks:
+      - tracking-net
+
+networks:
+  tracking-net:
+
+volumes:
+  pgdata:

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Tracking Test</title>
+</head>
+<body>
+    <h1>Bem-vindo à Lead Page</h1>
+    <p>Essa página está rastreando sua origem!</p>
+
+    <script>
+        function getUTMParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                utm_source: urlParams.get('utm_source') || "desconhecido",
+                utm_medium: urlParams.get('utm_medium') || "desconhecido",
+                utm_campaign: urlParams.get('utm_campaign') || "desconhecido",
+                utm_term: urlParams.get('utm_term') || "desconhecido",
+                utm_content: urlParams.get('utm_content') || "desconhecido",
+                referer: document.referrer || "direto",
+                user_agent: navigator.userAgent
+            };
+        }
+
+        function sendTrackingData() {
+            const trackingData = getUTMParams();
+
+            fetch("https://teste-api.turing.dev.br/api/tracking", { // Troque pela URL da sua API
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(trackingData)
+            }).then(response => {
+                console.log("Tracking enviado!", response);
+            }).catch(error => {
+                console.error("Erro ao enviar tracking", error);
+            });
+        }
+
+        window.onload = sendTrackingData;
+    </script>
+</body>
+</html>
